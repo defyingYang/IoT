@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧戒斷盒 - 鎖定控制</title>
+    <style>
+        /* 基礎設置，確保適配小螢幕和觸控 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 500px; /* 模擬手機寬度 */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 導航按鈕樣式 (模擬圖片中的 Tab 導航) */
+        .nav-tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 5px;
+        }
+        .nav-tabs a {
+            flex-grow: 1;
+            text-align: center;
+            padding: 10px 0;
+            text-decoration: none;
+            color: #666;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .nav-tabs a.active {
+            background-color: #2196f3; /* 鎖定控制 (藍色) */
+            color: white;
+            box-shadow: 0 2px 5px rgba(33, 150, 243, 0.4);
+        }
+
+        /* 儀表板卡片樣式 */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background-color: #fff;
+            padding: 15px 10px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #333;
+        }
+        .stat-label {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+        .stat-change {
+            font-size: 0.7em;
+            color: #4caf50; /* 綠色 */
+        }
+
+        /* 鎖定設定區塊 */
+        .lock-settings {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .countdown-large {
+            font-size: 4em;
+            font-weight: 200;
+            color: #2196f3;
+            margin: 10px 0 20px 0;
+        }
+
+        /* 時間選項按鈕 */
+        .duration-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .duration-options button {
+            background-color: #eee;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+        .duration-options button.selected {
+            background-color: #2196f3;
+            color: white;
+        }
+        
+        /* 範圍選擇器 (Slider) */
+        .slider-container {
+            padding: 10px 0;
+        }
+        input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* 鎖定按鈕 */
+        .lock-button {
+            background-color: #4CAF50; /* 綠色，代表行動 */
+            color: white;
+            border: none;
+            padding: 15px 0;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .lock-button:hover {
+            background-color: #45a049;
+        }
+
+        /* 鎖定狀態顯示區 */
+        .lock-status {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ffe0b2; /* 淺橘色背景 */
+            border-radius: 10px;
+            text-align: center;
+        }
+        .lock-status.locked {
+            background-color: #e3f2fd; /* 淺藍色背景 */
+            color: #1976d2;
+        }
+        .status-icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        .status-time {
+            font-size: 3em;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <header style="text-align: center; margin-bottom: 20px;">
+            <div class="status-icon"></div>
+            <h1>智慧戒斷盒</h1>
+            <p style="color: #888; font-size: 0.9em;">讓專注成為習慣，遠離手機干擾</p>
+        </header>
+
+        <div class="nav-tabs">
+            <a href="{{ url_for('home') }}" class="active"> 鎖定控制</a>
+            <a href="{{ url_for('ai_unlock_page') }}"> 緊急解鎖</a>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.total_hours }}<span style="font-size: 0.5em; font-weight: 400; color: #666;">小時</span></div>
+                <div class="stat-label">本週總時數</div>
+                <div class="stat-change" style="color: red;">-23%</div> </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.success_count }}<span style="font-size: 0.5em; font-weight: 400; color: #666;">次</span></div>
+                <div class="stat-label">成功次數</div>
+                <div class="stat-change">-5</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.avg_duration }}<span style="font-size: 0.5em; font-weight: 400; color: #666;">分鐘</span></div>
+                <div class="stat-label">平均時長</div>
+                <div class="stat-change">-8%</div>
+            </div>
+        </div>
+
+        <div class="lock-settings">
+            <h3>設定鎖定時間</h3>
+            <p style="color: #888; font-size: 0.9em;">選擇專注時長並開始你的任務</p>
+            
+            <form id="lock-form" method="POST" action="{{ url_for('lock') }}">
+                <div id="duration-display" class="countdown-large">30:00</div>
+                
+                <div class="duration-options">
+                    <button type="button" data-minutes="15">15分鐘</button>
+                    <button type="button" data-minutes="30" class="selected">30分鐘</button>
+                    <button type="button" data-minutes="60">1小時</button>
+                    <button type="button" data-minutes="120">2小時</button>
+                </div>
+
+                <div class="slider-container">
+                    <input type="range" id="duration-slider" name="duration" min="5" max="180" step="5" value="30">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #888;">
+                        <span>5分</span>
+                        <span>180分</span>
+                    </div>
+                </div>
+                
+                <input type="hidden" id="final-duration" name="duration" value="30">
+                
+                {% if session and session.status == 'LOCKED' %}
+                    <button type="button" class="lock-button" style="background-color: #ccc; cursor: default;" disabled>
+                        手機正在鎖定中 (請勿重複鎖定)
+                    </button>
+                {% else %}
+                    <button type="submit" class="lock-button">
+                        開始鎖定
+                    </button>
+                {% endif %}
+            </form>
+        </div>
+
+        <div id="lock-status-section" class="lock-status {% if session and session.status == 'LOCKED' %}locked{% endif %}">
+            <div class="status-icon">
+                {% if session and session.status == 'LOCKED' %}
+                    LOCKED
+                {% else %}
+                    UNLOCKED
+                {% endif %}
+            </div>
+            <div id="lock-status-text">
+                {% if session and session.status == 'LOCKED' %}
+                    手機已安全鎖定
+                {% else %}
+                    手機未鎖定
+                {% endif %}
+            </div>
+            <div id="countdown-display" class="status-time">
+                {% if session and session.status == 'LOCKED' %}
+                    {{ time_remaining_seconds | default(0) }}
+                {% else %}
+                    00:00
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // === 鎖定時間設定邏輯 ===
+        const slider = document.getElementById('duration-slider');
+        const durationDisplay = document.getElementById('duration-display');
+        const durationOptions = document.querySelector('.duration-options');
+        const finalDurationInput = document.getElementById('final-duration');
+
+        function formatTime(totalMinutes) {
+            const h = Math.floor(totalMinutes / 60);
+            const m = totalMinutes % 60;
+            if (h > 0) {
+                return `${h}小時${m}分`;
+            }
+            return `${String(m).padStart(2, '0')}:00`;
+        }
+
+        function updateDuration(minutes) {
+            slider.value = minutes;
+            durationDisplay.textContent = formatTime(minutes);
+            finalDurationInput.value = minutes;
+            
+            // 更新按鈕選中狀態
+            durationOptions.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('selected');
+                if (parseInt(btn.dataset.minutes) === minutes) {
+                    btn.classList.add('selected');
+                }
+            });
+        }
+
+        // Slider 變動時更新顯示
+        slider.addEventListener('input', (e) => {
+            const minutes = parseInt(e.target.value);
+            updateDuration(minutes);
+        });
+
+        // 快速按鈕點擊時更新
+        durationOptions.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const minutes = parseInt(e.target.dataset.minutes);
+                updateDuration(minutes);
+            }
+        });
+
+        // 初始載入時設定 (確保顯示和滑桿匹配)
+        updateDuration(parseInt(finalDurationInput.value)); 
+        
+        // === 鎖定狀態倒數計時邏輯 ===
+        let countdownSeconds = parseInt("{{ time_remaining_seconds | default(0) }}");
+        const countdownDisplay = document.getElementById('countdown-display');
+        const lockStatusText = document.getElementById('lock-status-text');
+        const lockStatusSection = document.getElementById('lock-status-section');
+
+        function updateCountdown() {
+            if (countdownSeconds <= 0) {
+                countdownDisplay.textContent = '00:00';
+                lockStatusText.textContent = '手機已解鎖';
+                lockStatusSection.classList.remove('locked');
+                lockStatusSection.style.backgroundColor = '#ffe0b2'; // 淺橘色 (未鎖定)
+                clearInterval(timer);
+                return;
+            }
+            
+            const minutes = Math.floor(countdownSeconds / 60);
+            const seconds = countdownSeconds % 60;
+            
+            const formattedTime = 
+                String(minutes).padStart(2, '0') + ':' + 
+                String(seconds).padStart(2, '0');
+                
+            countdownDisplay.textContent = formattedTime;
+            countdownSeconds--;
+        }
+
+        // 根據後端傳入的秒數啟動計時器
+        if (countdownSeconds > 0) {
+            updateCountdown(); // 立即運行一次，避免延遲 1 秒才顯示
+            var timer = setInterval(updateCountdown, 1000);
+        }
+    </script>
+</body>
+</html>

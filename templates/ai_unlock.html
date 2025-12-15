@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧戒斷盒 - 緊急解鎖</title>
+    <style>
+        /* === 繼承 index.html 的基礎樣式 === */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 500px; 
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .nav-tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 5px;
+        }
+        .nav-tabs a {
+            flex-grow: 1;
+            text-align: center;
+            padding: 10px 0;
+            text-decoration: none;
+            color: #666;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        /* 緊急解鎖按鈕使用紅色 */
+        .nav-tabs a.active {
+            background-color: #f44336; /* 紅色 */
+            color: white;
+            box-shadow: 0 2px 5px rgba(244, 67, 54, 0.4);
+        }
+
+        /* === 緊急解鎖特定樣式 === */
+        .header-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header-section h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .alert-box {
+            background-color: #fff3e0; /* 淺橘色警告 */
+            border-left: 5px solid #ff9800;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #333;
+            font-size: 0.9em;
+        }
+        .alert-box p {
+            margin: 0;
+        }
+
+        /* 表單樣式 */
+        .unlock-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        }
+        .unlock-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .unlock-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 100px;
+            font-size: 1em;
+        }
+        .submit-button {
+            background-color: #f44336; /* 緊急紅色 */
+            color: white;
+            border: none;
+            padding: 15px 0;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 700;
+        }
+        .submit-button:hover {
+            background-color: #e53935;
+        }
+        
+        /* 判斷列表樣式 (圖片底部) */
+        .guidance-flex {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+        .guidance-col {
+            flex-basis: 50%;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .reasonable {
+            background-color: #e8f5e9; /* 淺綠色 */
+            border: 1px solid #4CAF50;
+        }
+        .unreasonable {
+            background-color: #ffebee; /* 淺紅色 */
+            border: 1px solid #f44336;
+        }
+        .guidance-col h4 {
+            margin-top: 0;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+        }
+        .guidance-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            font-size: 0.85em;
+            color: #555;
+        }
+        .guidance-col li {
+            margin-bottom: 5px;
+        }
+        .success-alert {
+            background-color: #e8f5e9;
+            color: #4CAF50;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .error-alert {
+            background-color: #ffebee;
+            color: #f44336;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <header style="text-align: center; margin-bottom: 20px;">
+            <h1>緊急解鎖申請</h1>
+            <p style="color: #888; font-size: 0.9em;">AI 智慧判斷緊急狀況</p>
+        </header>
+
+        <div class="nav-tabs">
+            <a href="{{ url_for('home') }}">鎖定控制</a>
+            <a href="{{ url_for('ai_unlock_page') }}" class="active">緊急解鎖</a>
+        </div>
+        
+        <div class="alert-box">
+            <p>此功能僅供真正緊急狀況使用。濫用將被記錄並影響您的成就統計。</p>
+        </div>
+
+        {% if error_message %}
+        <div class="error-alert">{{ error_message }}</div>
+        {% elif success_message %}
+        <div class="success-alert">{{ success_message }}</div>
+        {% endif %}
+        
+        <div class="unlock-form">
+            <p style="text-align: center; color: #555; margin-bottom: 20px;">
+                AI 系統分析你的原因決定是否允許解鎖
+            </p>
+            <form method="POST" action="{{ url_for('handle_ai_unlock') }}">
+                <label for="reason">詳細說明緊急狀況*</label>
+                <textarea id="reason" name="reason" placeholder="例如：家人突然生病需要聯絡醫院..." required></textarea>
+                
+                <button type="submit" class="submit-button">
+                    提交緊急解鎖申請
+                </button>
+            </form>
+        </div>
+
+        <div class="guidance-flex">
+            <div class="guidance-col reasonable">
+                <h4>合理的緊急狀況</h4>
+                <ul>
+                    <li>醫療緊急事件</li>
+                    <li>家人突發狀況</li>
+                    <li>重要工作聯絡</li>
+                    <li>安全相關問題</li>
+                </ul>
+            </div>
+            <div class="guidance-col unreasonable">
+                <h4>不合理的理由</h4>
+                <ul>
+                    <li>感到無聊</li>
+                    <li>想看社群媒體</li>
+                    <li>單純想玩遊戲</li>
+                    <li>沒有具體原因</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

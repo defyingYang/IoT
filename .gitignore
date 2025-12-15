@@ -1,0 +1,17 @@
+# 虛擬環境
+venv/
+.venv/
+
+# 資料庫檔案
+*.db
+*.sqlite
+lockbox.db
+
+# Python 編譯和運行時檔案
+__pycache__/
+*.pyc
+*.swp
+.DS_Store
+
+# Flask/伺服器產生的檔案
+instance/
