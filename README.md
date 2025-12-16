@@ -32,6 +32,7 @@
 | 元件 | 備註 |
 | :--- | :--- |
 | **Raspberry Pi 4** |  |
+| **記憶卡** | 16GB |
 | **杜邦線** | 公母線5條、公公線1條 |
 | **變壓器** | 供應樹莓pi電源 |
 | **電磁鎖** | 12V 通電上鎖 |
@@ -41,6 +42,10 @@
 | **觸控螢幕** | 樹莓派5吋電容式觸控螢幕(800×480, HDMI) |
 | **USB 連接線** | USB to micro USB(公公) |
 | **HDMI 連接線** | micro HDMI to HDMI (公公)|
+| **紙箱** |  |
+
+![材料](https://github.com/defyingYang/IoT/blob/eb66070cbf6b7238e2496d7fe16f7c4bef7c3e51/iot03.jpg)
+
 
 ### 2. 軟體依賴 (Software Dependencies)
 
@@ -104,7 +109,16 @@
 | **電源迴路**(電磁鎖-繼電器) | **NO(常開)** |  **電磁鎖正極 (+)** | - | - |
 | **電源迴路**(電磁鎖-電源) | **電磁鎖負極 (-)** |  **12V** | **變壓器負極 (-)** | - |
 
- 
+![電磁鎖接線圖](https://github.com/defyingYang/IoT/blob/eb66070cbf6b7238e2496d7fe16f7c4bef7c3e51/iot01.jpg)
+
+觸控螢幕與樹莓pi
+
+| 連接點 | 樹莓派 | 
+| :--- | :--- | 
+| **microUSB** | **USB-A** | 
+| **HDMI** | **microHDMI** | 
+
+![觸控螢幕接線圖](https://github.com/defyingYang/IoT/blob/eb66070cbf6b7238e2496d7fe16f7c4bef7c3e51/iot02.jpg)
 
 ### 步驟 C: 運行應用程式
 
