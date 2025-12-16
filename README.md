@@ -1,6 +1,6 @@
-# IoT(Unfinished)
+# IoT
 =======
-# 智慧戒斷盒 (Self-Discipline Lockbox)
+# 手機戒斷盒 
 
 **專注時長設定、GPIO 硬體鎖定、AI 緊急解鎖判斷**
 
@@ -139,7 +139,7 @@
 ![](https://github.com/defyingYang/IoT/blob/a2f0218e2e943d45bf1d0d60286415c83e615095/iot06.png)
 
 影片
-* [測試影片]()
+* [測試影片](https://youtube.com/shorts/PaRYmG42oKI?feature=share)
 
 參考資料
 * [基於物聯網的電磁門鎖使用樹莓派4](https://www.21ic.com/a/977886.html)
