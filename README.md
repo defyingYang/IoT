@@ -126,7 +126,7 @@
 ```bash
 (venv) $ python app.py
 >>>>>>> a35f0b373acf1c20ca36c2d7da9b9bc0b7c62e1f
-進入 http://172.20.10.2:5000/
+
 ```
 
 首頁面可以選擇鎖定時間
