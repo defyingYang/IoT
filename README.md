@@ -127,3 +127,25 @@
 ```bash
 (venv) $ python app.py
 >>>>>>> a35f0b373acf1c20ca36c2d7da9b9bc0b7c62e1f
+進入 http://172.20.10.2:5000/
+```
+
+首頁面可以選擇鎖定時間
+![](https://github.com/defyingYang/IoT/blob/410991ed3f65d0204525b7c64dca4953a50eaad7/iot04.png)
+
+倒數計時(上鎖)
+![](https://github.com/defyingYang/IoT/blob/230c3951cf625461c0ff59e4ebee6cfd2b966dfa/iot05.png)
+
+可經由輸入緊急情況解鎖
+![](https://github.com/defyingYang/IoT/blob/a2f0218e2e943d45bf1d0d60286415c83e615095/iot06.png)
+
+參考資料
+    1'https://www.21ic.com/a/977886.htmlhttps://www.21ic.com/a/977886.html (基于物联网的电磁门锁使用树莓派4)
+    2'https://www.youtube.com/watch?v=A4OWrq6dQNA(繼電器接電方法)
+    3'https://speakerdeck.com/piepie_tw/raspberry-pi-gpio-and-smart-relay?slide=49(繼電器使用方法)
+    4'codedata.com.tw/java/att10/ (繼電器)
+    5'Python Flask 官方文件
+    6'Raspberry Pi RPi.GPIO 函式庫教學
+    7'Chart.js 官方文件
+    8'SQLite Python (sqlite3) 函式庫教學
+
