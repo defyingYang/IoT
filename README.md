@@ -108,7 +108,8 @@
 | **電源迴路**(電磁鎖-繼電器) | **NO(常開)** |  **電磁鎖正極 (+)** | - | - |
 | **電源迴路**(電磁鎖-電源) | **電磁鎖負極 (-)** |  **12V** | **變壓器負極 (-)** | - |
 
-![電磁鎖接線圖](https://github.com/defyingYang/IoT/blob/eb66070cbf6b7238e2496d7fe16f7c4bef7c3e51/iot01.jpg)
+![電磁鎖接線圖](https://github.com/defyingYang/IoT/blob/f019e3ae6d65c7f59c0e5e3cc5a45864ee257da9/iot07.jpg)
+![電磁鎖接線照片](https://github.com/defyingYang/IoT/blob/eb66070cbf6b7238e2496d7fe16f7c4bef7c3e51/iot01.jpg)
 
 觸控螢幕與樹莓pi
 
