@@ -140,12 +140,12 @@
 ![](https://github.com/defyingYang/IoT/blob/a2f0218e2e943d45bf1d0d60286415c83e615095/iot06.png)
 
 參考資料
-    1' https://www.21ic.com/a/977886.htmlhttps://www.21ic.com/a/977886.html (基于物联网的电磁门锁使用树莓派4)
-    2' https://www.youtube.com/watch?v=A4OWrq6dQNA(繼電器接電方法)
-    3' https://speakerdeck.com/piepie_tw/raspberry-pi-gpio-and-smart-relay?slide=49(繼電器使用方法)
-    4' codedata.com.tw/java/att10/ (繼電器)
-    5' Python Flask 官方文件
-    6' Raspberry Pi RPi.GPIO 函式庫教學
-    7' Chart.js 官方文件
-    8' SQLite Python (sqlite3) 函式庫教學
+    1. https://www.21ic.com/a/977886.htmlhttps://www.21ic.com/a/977886.html (基于物联网的电磁门锁使用树莓派4)
+    2. https://www.youtube.com/watch?v=A4OWrq6dQNA(繼電器接電方法)
+    3. https://speakerdeck.com/piepie_tw/raspberry-pi-gpio-and-smart-relay?slide=49(繼電器使用方法)
+    4. codedata.com.tw/java/att10/ (繼電器)
+    5. Python Flask 官方文件
+    6. Raspberry Pi RPi.GPIO 函式庫教學
+    7. Chart.js 官方文件
+    8. SQLite Python (sqlite3) 函式庫教學
 
